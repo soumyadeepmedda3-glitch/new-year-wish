@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy New Year 2026</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: radial-gradient(circle at bottom, #020111, #000000);
+    overflow: hidden;
+    color: white;
+}
+
+/* Center Box */
+.center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 90%;
+}
+
+/* Input Screen */
+#nameBox {
+    animation: fadeIn 2s;
+}
+
+input {
+    padding: 12px;
+    font-size: 18px;
+    border-radius: 6px;
+    border: none;
+    outline: none;
+    text-align: center;
+}
+
+button {
+    margin-top: 15px;
+    padding: 12px 30px;
+    font-size: 18px;
+    border-radius: 25px;
+    border: none;
+    cursor: pointer;
+    background: linear-gradient(45deg, gold, orange);
+    color: black;
+    font-weight: bold;
+}
+
+/* Greeting Screen */
+#greeting {
+    display: none;
+    animation: zoomIn 2s;
+}
+
+h1 {
+    font-size: 60px;
+    background: linear-gradient(90deg, gold, red, gold);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    animation: glow 2s infinite alternate;
+}
+
+h2 {
+    font-size: 30px;
+    color: #ffeb3b;
+}
+
+p {
+    font-size: 24px;
+    color: #ddd;
+}
+
+/* Fireworks */
+.firework {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    animation: explode 1.5s infinite;
+}
+
+@keyframes explode {
+    0% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(6); opacity: 0; }
+}
+
+/* Balloons */
+.balloon {
+    position: absolute;
+    bottom: -100px;
+    font-size: 40px;
+    animation: floatUp linear infinite;
+}
+
+@keyframes floatUp {
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(-120vh); opacity: 0; }
+}
+
+/* Gifts */
+.gift {
+    position: absolute;
+    top: -50px;
+    font-size: 35px;
+    animation: fallDown linear infinite;
+}
+
+@keyframes fallDown {
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(120vh); opacity: 0; }
+}
+
+@keyframes glow {
+    from { text-shadow: 0 0 10px gold; }
+    to { text-shadow: 0 0 30px red; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes zoomIn {
+    from { transform: translate(-50%, -50%) scale(0); }
+    to { transform: translate(-50%, -50%) scale(1); }
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🔊 PATHAKHA / BAJI SOUND -->
+<audio id="bajiSound" src="pathakha.mp3.aac"></audio>
+
+<!-- Name Input Screen -->
+<div class="center" id="nameBox">
+    <h2>🎉 Enter Your Name 🎉</h2>
+    <input type="text" id="username" placeholder="Your Name">
+    <br>
+    <button onclick="openGreeting()">Open Wishes</button>
+</div>
+
+<!-- Greeting Screen -->
+<div class="center" id="greeting">
+    <h1>Happy New Year 2026 🎆</h1>
+    <h2 id="fromText"></h2>
+    <p id="wishText"></p>
+</div>
+
+<script>
+function openGreeting() {
+    let receiver = document.getElementById("username").value.trim();
+    let sender = "Soumyadeep";
+
+    if (receiver === "") {
+        alert("Please enter your name");
+        return;
+    }
+
+    // 🔊 Play Pathakha Sound
+    let sound = document.getElementById("bajiSound");
+    sound.currentTime = 0;
+    sound.play();
+
+    document.getElementById("nameBox").style.display = "none";
+    document.getElementById("greeting").style.display = "block";
+
+    document.getElementById("fromText").innerText =
+        sender + " wishing you";
+    document.getElementById("wishText").innerText =
+        "🎉 Happy New Year " + receiver + " 🎉";
+
+    // 🎆 Fireworks
+    for (let i = 0; i < 30; i++) {
+        let f = document.createElement("div");
+        f.className = "firework";
+        f.style.left = Math.random() * window.innerWidth + "px";
+        f.style.top = Math.random() * window.innerHeight + "px";
+        f.style.background =
+            `hsl(${Math.random() * 360},100%,60%)`;
+        document.body.appendChild(f);
+        setTimeout(() => f.remove(), 2000);
+    }
+
+    // 🎈 Balloons
+    setInterval(() => {
+        let b = document.createElement("div");
+        b.className = "balloon";
+        b.innerText = "🎈";
+        b.style.left = Math.random() * window.innerWidth + "px";
+        b.style.animationDuration = (6 + Math.random() * 4) + "s";
+        document.body.appendChild(b);
+        setTimeout(() => b.remove(), 10000);
+    }, 500);
+
+    // 🎁 Gifts
+    setInterval(() => {
+        let g = document.createElement("div");
+        g.className = "gift";
+        g.innerText = "🎁";
+        g.style.left = Math.random() * window.innerWidth + "px";
+        g.style.animationDuration = (5 + Math.random() * 3) + "s";
+        document.body.appendChild(g);
+        setTimeout(() => g.remove(), 9000);
+    }, 700);
+}
+</script>
+
+</body>
+</html>
